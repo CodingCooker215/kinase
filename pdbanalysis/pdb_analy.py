@@ -26,17 +26,18 @@ def stripy(name, prefix, suffix):
 #adds and organizes template
 cmd.fetch("4AF3")
 cmd.util.cbc()
-cmd.hide("/4AF3/E/D")
+#cmd.hide("/4AF3/E/D")
 cmd.hide("/4AF3/B/D")
-cmd.color_deep("orange", '4AF3', 0)
+cmd.color_deep("green", '4AF3', 0)
 
 #adds and compares generated with template
 for path in cookies:
     cmd.load(path)
     cleaned_name = stripy(path, "/Users/jasonhwang/Downloads", ".pdb")
-    curr_data=cmd.align("4AF3", f"{cleaned_name}")
+    cmd.color_deep("red", f"{cleaned_name}", 0)
+    curr_data=cmd.super("4AF3", f"{cleaned_name}")
     rmsd_val=float(curr_data[0])
-    cmd.png(f"/Users/jasonhwang/Documents/Brown/Rubenstein/pdbanalysis/{cleaned_name}_4AF3", 0, 0, -1, ray=0)
+    cmd.png(f"/Users/jasonhwang/Documents/Brown/Rubenstein/pdbanalysis/{cleaned_name}_test_4AF3", 0, 0, -1, ray=0)
     if rmsd_val>=best:
         best=rmsd_val
         keep=cleaned_name
