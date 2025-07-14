@@ -23,3 +23,5 @@ struggles/
 Subgroup_papers/
 
 aukb_domain_wt_128_256/aukb_domain_wt.a3m
+# Ignore the large A3M file
+aukb_domain_wt_128_256/aukb_domain_wt.a3m
