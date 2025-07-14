@@ -1,7 +1,0 @@
-{
-    "python.testing.pytestArgs": [
-        "pdbanalysis"
-    ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
-}
