@@ -65,3 +65,4 @@ def G_Loop():
 print(data)
 for lines in data:
     filely.write(lines)
+    
