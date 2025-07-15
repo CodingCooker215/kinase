@@ -1,6 +1,6 @@
 curr_pdb=[]
 data=[]
-filely=open("aukb_wt_128_256_alignment_DFG.txt", "w")
+filely=open("aukb_wt_128_256_alignment_DFG_active_test.txt", "w")
 
 #DFG=142-144
 #G_Loop=8-13
@@ -16,10 +16,10 @@ def stripy(name, prefix, suffix):
         name = name[:-len(suffix)]
     return name.strip('/')  # Remove any leading/trailing slashes
 
-with open("aukb_domain_wt_128_256.txt", "r") as f:
+with open("aukb_domain_t232d_64_128.txt", "r") as f:
     lines=f.readlines()
     for j in lines:
-        curr_pdb.append("/Users/jasonhwang/Documents/Brown/Rubenstein/aukb_domain_wt_128_256/"+j.strip())
+        curr_pdb.append("/Users/jasonhwang/Documents/Brown/Rubenstein/aukb_domain_t232d_64_128/"+j.strip())
 
 # cmd.load("AukB_G_Loop.pdb")
 # cmd.color_deep("red", "AukB_G_Loop", 0)
@@ -46,15 +46,15 @@ def annoatate():
 def DFG():
     for i in range(len(curr_pdb)):
         print(i)
-        cmd.load("AukB_DFG.pdb")
-        cmd.color_deep("red", "AukB_DFG", 0)
+        cmd.load("active_dfg_4c2v.pdb")
+        cmd.color_deep("red", "active_dfg_4c2v", 0)
         paths=f"{curr_pdb[i]}"
         cmd.load(paths)
-        cleaned_name = stripy(paths, "/Users/jasonhwang/Documents/Brown/Rubenstein/aukb_domain_wt_128_256/", ".pdb")
+        cleaned_name = stripy(paths, "/Users/jasonhwang/Documents/Brown/Rubenstein/aukb_domain_t232d_64_128/", ".pdb")
         cmd.color_deep("white", f'{cleaned_name}', 0)
         cmd.set("cartoon_transparency", 0.75, f"{cleaned_name}")
         annoatate()
-        curr_data=cmd.align("polymer and name CA and (AukB_DFG)","polymer and name CA and (DFG)",quiet=0,object="aln_AukB_DFG_to_DFG",reset=1)
+        curr_data=cmd.align("polymer and name CA and (DFG)","polymer and name CA and (active_dfg_4c2v)",quiet=0,object="aln_DFG_to_active_dfg_4c2v",reset=1)
         data.append(f"{cleaned_name}|{curr_data} \n")
         cmd.center()
         cmd.set_view((
@@ -64,8 +64,10 @@ def DFG():
      0.000000000,    0.000000000, -187.763702393,
      1.059869766,   -1.174396515,    1.122215271,
   -6261.794921875, 6637.324707031,  -20.000000000 ))
-        cmd.png(f"/Users/jasonhwang/Documents/Brown/Rubenstein/pdbtest/{cleaned_name}_DFG_test2", 0, 0, -1, ray=0)
+        cmd.png(f"/Users/jasonhwang/Documents/Brown/Rubenstein/pdb_active/{cleaned_name}_DFG_test2", 0, 0, -1, ray=0)
         cmd.delete("all")
+    for lines in data:
+        filely.write(lines)
 def G_Loop():
     for i in range(len(curr_pdb)):
         cmd.load("AukB_G_Loop.pdb")
@@ -80,8 +82,9 @@ def G_Loop():
         cmd.png(f"/Users/jasonhwang/Documents/Brown/Rubenstein/pdb/{cleaned_name}_DFG", 0, 0, -1, ray=0)
         cmd.delete("all")
 
+print(data)
+# for lines in data:
+#     filely.write(lines)
+
 DFG()
 
-print(data)
-for lines in data:
-    filely.write(lines)
